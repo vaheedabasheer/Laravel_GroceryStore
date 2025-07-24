@@ -22,6 +22,13 @@
                 </div>
                 <p>Just Sign Up & Register it now to become member.</p>
               </div>
+              
+                    	@if(session('success'))
+							<center><h3 style="color:white";>{{session('success')}}</h3></center>
+							@endif
+							@if(session('message'))
+							<center><h3 style="color:red";>{{session('message')}}</h3></center>
+							@endif
               <div class="col-md-5 p-3" id="login">
                 <form method="POST" action="{{ route('dologin') }}">
     @csrf
@@ -45,7 +52,8 @@
             
           </div>
         </div>
-        
+        <h4 class="text-center">Not a member...? <a href="{{route('register')}}" class="text-danger">Register Now</a></h4>
+        <br>
       </div>
     </section>
  <section style="background-image: url('images/banner-1.jpg');background-repeat: no-repeat;background-size: cover;">
@@ -53,12 +61,6 @@
         <div class="row">
           <div class="col-lg-6 pt-5 mt-5">
             
-                    	@if(session('success'))
-							<center><h3 style="color:green";>{{session('success')}}</h3></center>
-							@endif
-							@if(session('message'))
-							<center><h3 style="color:red";>{{session('message')}}</h3></center>
-							@endif
             <h2 class="display-1 ls-1"><span class="fw-bold text-primary">Organic</span> Foods at your <span class="fw-bold">Doorsteps</span></h2>
             <p class="fs-4">Dignissim massa diam elementum.</p>
             <div class="d-flex gap-3">

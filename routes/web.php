@@ -19,10 +19,19 @@ Route::post('/save-products',[FrontendController::class,'saveProducts'] )->name(
 Route::get('/view-products',[FrontendController::class,'viewProducts'] )->name('viewProducts');
 Route::get('/delete-products/{pid}',[FrontendController::class,'deleteProducts'] )->name('deleteProducts');
 Route::get('/edit-products/{pid}',[FrontendController::class,'editProducts'] )->name('editProducts');
-Route::post('/update-product', [FrontendController::class, 'updateProduct'])->name('updateProduct');
+Route::post('/update-product', [FrontendController::class, 'updateProduct'])->name('updateProducts');
 Route::get('/view-product', [UserController::class, 'productView'])->name('productView');
 Route::post('/create-cart', [UserController::class, 'createCart'])->name('createCart');
 Route::get('/view-cart', [UserController::class, 'viewCart'])->name('viewCart');
 Route::get('/delete-Usercart/{pid}', [UserController::class, 'DeleteUserCart'])->name('DeleteUserCart');
 Route::get('/checkout', [UserController::class, 'checkout'])->name('checkout');
+Route::get('/place-order', [UserController::class, 'showPlaceOrderPage'])->name('placeOrder');
+Route::get('/user/profile', [UserController::class, 'userProfile'])->name('userProfile');
+Route::get('/user/profile/edit', [UserController::class, 'userProfileEdit'])->name('userProfileEdit');
+Route::post('/user/profile/update/{user_id}', [UserController::class, 'userProfileUpdate'])->name('userProfileUpdate');
+Route::get('/admin-viewCart', [FrontendController::class, 'adminviewCart'])->name('adminviewCart');
+Route::get('/user-Order', [UserController::class, 'placeOrder'])->name('order.success');
+Route::get('/user-viewOrder', [UserController::class, 'viewOrder'])->name('viewOrder');
+Route::post('/user-cancelOrder/{id}', [UserController::class, 'cancelOrder'])->name('cancelOrder');
+
 Route::get('/logout',[FrontendController::class,'logout'] )->name('logout');

@@ -1,5 +1,5 @@
 @extends('layouts.admin_head')
-    @section('content');
+    @section('content')
     <section style="background-image: url('images/banner-1.jpg');background-repeat: no-repeat;background-size: cover;">
       <div class="container-lg">
         <div class="row">

@@ -21,11 +21,12 @@
         <p class="card-text">{{$cart->description}}.</p>
             <p class="card-text">Quantity: {{ $cart->total_quantity }}.</p>
         <a href="{{route('DeleteUserCart',encrypt($cart->pid))}}"><button type="button" class="btn btn-outline-danger">Remove</button></a>
-       <a href="{{route('checkout')}}"> <button type="button" class="btn btn-outline-success">Checkout</button></a>
       </div>
     </div>
   </div>
 </div>
 @endforeach
+
+       <a href="{{route('checkout')}}"> <button type="button" class="btn btn-outline-success">Checkout</button></a>
 </center>
     @stop

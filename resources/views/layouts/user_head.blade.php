@@ -265,7 +265,7 @@
           <div class="col-sm-4 col-lg-2 text-center text-sm-start d-flex gap-3 justify-content-center justify-content-md-start">
             <div class="d-flex align-items-center my-3 my-sm-0">
               <a href="index.html">
-                <img src="images/logo.svg" alt="logo" class="img-fluid">
+                <img src="{{asset('images/logo.svg')}}" alt="logo" class="img-fluid">
               </a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -304,7 +304,9 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle pe-3" role="button" id="pages" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
                 <ul class="dropdown-menu border-0 p-3 rounded-0 shadow" aria-labelledby="pages">
-                  <li><a href="{{route('productView')}}" class="dropdown-item">Products</a></li>
+                  <li><a href="{{route('userProfile')}}" class="dropdown-item">Profile</a></li>
+                   <li><a href="{{route('productView')}}" class="dropdown-item">Products</a></li>
+                     <li><a href="{{route('viewOrder')}}" class="dropdown-item">View Orders</a></li>
                   
                 </ul>
               </li>
@@ -354,7 +356,7 @@
 
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="footer-menu">
-              <img src="images/logo.svg" width="240" height="70" alt="logo">
+              <img src="{{asset('images/logo.svg')}}" width="240" height="70" alt="logo">
               <div class="social-links mt-3">
                 <ul class="d-flex list-unstyled gap-2">
                   <li>

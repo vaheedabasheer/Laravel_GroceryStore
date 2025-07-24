@@ -70,7 +70,7 @@
                   </div>
                 </form>
           
-
+<h3><a href="{{route('login')}}" class="text-center text-warning" >Login Now</a></h3>
               </div>
               
             </div>
@@ -79,6 +79,7 @@
         </div>
         
       </div>
+      
     </section>
  <section style="background-image: url('images/banner-1.jpg');background-repeat: no-repeat;background-size: cover;">
       <div class="container-lg">

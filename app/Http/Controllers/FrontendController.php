@@ -214,7 +214,7 @@ $categories = DB::table('catagories')->get(); // or use Eloquent: Catagory::all(
  return view('editProducts',compact('pro', 'categories'));
 }
 
-public function updateProducts(Request $request)
+public function updateProduct(Request $request)
 {
     $request->validate([
         'pid' => 'required',
@@ -246,9 +246,39 @@ $pid=request('pid');
     // Update product
     DB::table('products')->where('pid', $pid)->update($data);
 
-    return redirect()->back()->with('success', 'Product updated successfully!');
+    return redirect()->route('viewProducts')->with('success', 'Product updated successfully!');
 
 }
+
+public function adminviewCart()
+{
+   $carts = DB::table('carts')
+    ->join('registrations', 'carts.user_id', '=', 'registrations.user_id')
+    ->join('products', 'products.pid', '=', 'carts.pid')
+    ->select(
+        'carts.*',
+        'registrations.name',
+        'registrations.email',
+        'registrations.phone',
+        'registrations.address',
+        'products.product',
+        'products.price',
+        'products.stock'
+    )
+    ->get()
+    ->toArray(); // convert collection to array
+
+// group by user_id with native PHP array function:
+$cartsGrouped = [];
+
+foreach ($carts as $cart) {
+    $cartsGrouped[$cart->user_id][] = $cart;
+}
+
+return view('admin_viewCart', ['carts' => $cartsGrouped]);
+
+}
+
 
 
 }

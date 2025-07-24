@@ -1,17 +1,16 @@
 @extends('layouts.admin_head')
     @section('content')
  <br>
-@if(session('success'))
-    <center><p style="color:green">{{session('success')}}</p></center>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
-  <center>
-  <ul style="list-style-type:none">
-    @foreach($errors->all() as $error)
-    <li style="color:red">{{$error}}</li>
-    @endforeach
-  </ul>
-  </center>
-  @endif
    <form action="{{route('updateProducts')}}" method="post" enctype="multipart/form-data">
     @csrf 
 <table class="table">
