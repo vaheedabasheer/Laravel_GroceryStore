@@ -8,6 +8,7 @@ use App\Models\Registration;
 use App\Models\Catagory;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Hash;
@@ -279,6 +280,47 @@ return view('admin_viewCart', ['carts' => $cartsGrouped]);
 
 }
 
+public function viewAllOrders(Request $request)
+{
+   $query = $request->input('search');
+    $orders = DB::table('order_items')
+        ->join('orders', 'order_items.oid', '=', 'orders.oid')
+        ->join('products', 'products.pid', '=', 'order_items.pid')
+        ->join('registrations', 'registrations.user_id', '=', 'orders.user_id')
+        ->select(
+            'orders.oid',
+            'orders.status',
+            'orders.total_price',
+            'products.product',
+            'products.price',
+            'order_items.quantity',
+            'registrations.name',
+            'registrations.email',
+            'registrations.phone',
+            'registrations.address'
+        )
+        ->when($query, function ($q) use ($query) {
+            $q->where('registrations.name', 'like', '%' . $query . '%')
+              ->orWhere('products.product', 'like', '%' . $query . '%');
+        }) 
+        ->orderBy('orders.created_at', 'desc')
+
+        ->get();
+
+    return view('adminviewOrders', compact('orders','query'));
+}
+public function approveOrder($id)
+{
+    $order = Order::findOrFail($id);
+
+    if ($order->status == 'pending') {
+        $order->status = 'approved';
+        $order->save();
+        return redirect()->back()->with('success', 'Order approved successfully!');
+    }
+
+    return redirect()->back()->with('success', 'Order is already approved.');
+}
 
 
 }

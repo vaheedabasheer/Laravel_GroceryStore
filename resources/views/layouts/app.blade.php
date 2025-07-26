@@ -268,19 +268,25 @@
                 <img src="images/logo.svg" alt="logo" class="img-fluid">
               </a>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
               aria-controls="offcanvasNavbar">
               <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#menu"></use></svg>
-            </button>
+            </button> -->
           </div>
         
 
           <div class="col-lg-4">
             <ul class="navbar-nav list-unstyled d-flex flex-row gap-3 gap-lg-5 justify-content-center flex-wrap align-items-center mb-0 fw-bold text-uppercase text-dark">
               <li class="nav-item active">
-                <a href="index.html" class="nav-link">Home</a>
+                <a href="{{route('home')}}" class="nav-link">Home</a>
               </li>
-              <li class="nav-item dropdown">
+                 <li class="nav-item active">
+                <a href="{{route('register')}}" class="nav-link">Register</a>
+              </li>
+                 <li class="nav-item active">
+                <a href="{{route('login')}}" class="nav-link">Login</a>
+              </li>
+              <!-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle pe-3" role="button" id="pages" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
                 <ul class="dropdown-menu border-0 p-3 rounded-0 shadow" aria-labelledby="pages">
                   <li><a href="index.html" class="dropdown-item">About Us </a></li>
@@ -296,13 +302,13 @@
                   <li><a href="index.html" class="dropdown-item">My Account </a></li>
                   <li><a href="index.html" class="dropdown-item">404 Error </a></li>
                 </ul>
-              </li>
+              </li> -->
             </ul>
           </div>
           
           <div class="col-sm-8 col-lg-2 d-flex gap-5 align-items-center justify-content-center ms-auto justify-content-sm-end">
             <ul class="d-flex justify-content-end list-unstyled m-0">
-                                    <div class="dropdown">
+                                    <!-- <div class="dropdown">
  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
   <svg width="24" height="24"><use xlink:href="#user"></use></svg>
 
@@ -316,7 +322,7 @@
               </li>
  
   </ul>
-</div>
+</div> -->
               <!-- <li> 
                 <a href="{{route('login')}}" class="p-2 mx-1">
                   <svg width="24" height="24"><use xlink:href="#user"></use></svg>

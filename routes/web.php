@@ -34,4 +34,7 @@ Route::get('/user-Order', [UserController::class, 'placeOrder'])->name('order.su
 Route::get('/user-viewOrder', [UserController::class, 'viewOrder'])->name('viewOrder');
 Route::post('/user-cancelOrder/{id}', [UserController::class, 'cancelOrder'])->name('cancelOrder');
 
+Route::get('/user-view-Allproducts', [FrontendController::class, 'viewAllOrders'])->name('orderViewAll');
+Route::post('/admin/approve-order/{id}', [FrontendController::class, 'approveOrder'])->name('approveOrder');
+
 Route::get('/logout',[FrontendController::class,'logout'] )->name('logout');

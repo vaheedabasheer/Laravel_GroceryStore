@@ -6,11 +6,20 @@
     <p style="color:green">{{session('success')}}</p>
     @endif
  </center>
-       <center>
-<h2 style="font-family: var(--bs-body-font-family);">All Products</h2><br>
-<div class="text-end">
- <button class="btn btn-success"><a href="{{route('viewCart')}}" style="color:white;text-decoration:none;" ><b>View Cart</b></a></button> 
-</div>
+  
+<h2 style="font-family: var(--bs-body-font-family) text-center;">All Products</h2><br>
+
+
+<center>
+    <form action="{{ route('productView') }}" method="GET" style="margin-bottom: 20px;">
+        <input type="text" name="search" placeholder="Search Products..." value="{{ request('search') }}">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    @if(isset($query))
+        <p>Showing results for <strong>"{{ $query }}"</strong></p>
+      
+    @endif
+</center>
 
 
    <table  style="width:100%">

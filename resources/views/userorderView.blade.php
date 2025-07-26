@@ -19,7 +19,7 @@
          <th scope="col">Price:</th>
       <th scope="col">Status</th>
          <th scope="col">Order Date:</th>
-           <th scope="col">Cancel Orders</th>
+           <th scope="col">Order Status</th>
     </tr>
   </thead>
   <tbody>
@@ -32,12 +32,14 @@
       <td>{{ ucfirst($order->status) }}</td> 
       <td>{{ \Carbon\Carbon::parse($order->order_date)->format('d M Y') }}</td>
           <td>
-        @if ($order->status === 'pending')
+        @if($order->status === 'pending')
         <form action="{{ route('cancelOrder', $order->oid) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this order?')">
 
             @csrf
             <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
           </form>
+          @elseif($order->status === 'approved')
+           <span class="text-muted">Approved</span>
         @else
           <span class="text-muted">cancelled</span>
         @endif

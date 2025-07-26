@@ -16,15 +16,20 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
-    public function productView()
-    {
-        $products = DB::table('products')
+    public function productView(Request $request)
+{
+    $query = $request->input('search'); // Get search input
+
+    $products = DB::table('products')
         ->join('catagories', 'products.cid', '=', 'catagories.cid')
         ->select('products.*', 'catagories.name as category_name')
+        ->when($query, function ($q) use ($query) {
+            return $q->where('products.product', 'like', '%' . $query . '%');
+        })
         ->get();
 
-  return view('user_viewProducts',compact('products'));
-    }
+    return view('user_viewProducts', compact('products', 'query'));
+}
 
     public function createCart(Request $request)
     {
@@ -239,5 +244,6 @@ public function cancelOrder($id)
 
     return redirect()->back()->with('error', 'Only pending orders can be cancelled.');
 }
+
 
 }
