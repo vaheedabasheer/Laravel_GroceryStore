@@ -5,7 +5,13 @@
 <b><h6 style="color:green"> <center>{{session('success')}}</h6></b></center>
  <br><br>
    
-      @endif
+       @endif
+      <!-- {{-- Low stock warning --}} -->
+@if($stocknotification)
+    <div class="alert alert-warning">
+     <center> <span style="color:red">{{$stocknotification }}</span>  </center>
+    </div>
+@endif 
        <center>
 <h2 style="font-family: var(--bs-body-font-family);">All Products</h2><br>
    <table class="table table-secondary table-striped">
@@ -21,13 +27,18 @@
       <th>Actions</th>
     </tr>
           @foreach($products as $product)
-    <tr>
-  
+<tr class="{{ $product->stock == 0 ? 'table-danger' : '' }}">
+
+
       <th>{{$loop->iteration}}</th>
       <td>{{$product->product}}</td>
      <td>{{ $product->category_name }}</td>
     <td>{{$product->price}}</td>
-       <td>{{$product->stock}}</td>
+       <td>{{$product->stock}}
+          @if($product->stock <= 0)
+            <span class="text-danger fw-bold"> (Out of Stock)</span>
+        @endif
+       </td>
         <td>{{$product->description}}</td>
         <td><img src="{{ asset('storage/images/' . $product->image) }}" alt="Product Image" width="150"></td>
           <td><a href="{{route('editProducts',encrypt($product->pid))}}"><button class="btn btn-warning">Edit</button></a>
@@ -37,6 +48,7 @@
    
 
 </table>
+{{ $products->links('pagination::bootstrap-5') }}
 
 </center>
 <br><br><br>

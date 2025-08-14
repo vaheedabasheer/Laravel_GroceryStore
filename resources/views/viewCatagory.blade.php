@@ -6,6 +6,9 @@
  <br><br>
    
       @endif
+       @if(session('message'))
+<b><h6 style="color:green"> <center>{{session('message')}}</h6></b></center>
+@endif
        <center>
 <h2 style="font-family: var(--bs-body-font-family);">Catagory</h2>
    <table class="table table-success table-striped" style="width:50%">
@@ -15,7 +18,7 @@
         <th>{{$catagory->name}}</th>
       
         <td><a href="{{route('catagoryDelete',encrypt($catagory->cid))}}">Delete</a></td>
-         
+         <td><a href="{{route('catagoryEdit',encrypt($catagory->cid))}}">Edit</a></td>
     </tr>
      @endforeach
    </table>

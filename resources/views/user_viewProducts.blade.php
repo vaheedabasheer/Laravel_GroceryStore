@@ -6,7 +6,11 @@
     <p style="color:green">{{session('success')}}</p>
     @endif
  </center>
-  
+   <center>
+    @if(session('error'))
+    <p style="color:red">{{session('error')}}</p>
+    @endif
+ </center>
 <h2 style="font-family: var(--bs-body-font-family) text-center;">All Products</h2><br>
 
 

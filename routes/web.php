@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 Route::get('/',[FrontendController::class,'index'] )->name('home');
 Route::get('/login',[FrontendController::class,'login'] )->name('login');
 Route::get('/register',[FrontendController::class,'register'] )->name('register');
@@ -14,6 +15,9 @@ Route::get('/add',[FrontendController::class,'add'] )->name('add');
 Route::post('/add-catagory',[FrontendController::class,'addCatagory'] )->name('addCatagory');
 Route::get('/view-catagory',[FrontendController::class,'viewCatagory'] )->name('viewCatagory');
 Route::get('/delete-catagory/{cid}',[FrontendController::class,'catagoryDelete'] )->name('catagoryDelete');
+Route::get('/edit-catagory/{cid}',[FrontendController::class,'catagoryEdit'] )->name('catagoryEdit');
+Route::post('/update-catagory/{cid}',[FrontendController::class,'updatecatagory'] )->name('updatecatagory');
+
 Route::get('/add-products',[FrontendController::class,'addProducts'] )->name('addProducts');
 Route::post('/save-products',[FrontendController::class,'saveProducts'] )->name('saveProducts');
 Route::get('/view-products',[FrontendController::class,'viewProducts'] )->name('viewProducts');
@@ -36,5 +40,10 @@ Route::post('/user-cancelOrder/{id}', [UserController::class, 'cancelOrder'])->n
 
 Route::get('/user-view-Allproducts', [FrontendController::class, 'viewAllOrders'])->name('orderViewAll');
 Route::post('/admin/approve-order/{id}', [FrontendController::class, 'approveOrder'])->name('approveOrder');
-
+Route::get('/notifications', [UserController::class, 'showNotifications'])->name('user.notifications');
+Route::get('/contactUs', [HomeController::class, 'contactus'])->name('contactus');
+Route::post('/contactUs/save', [HomeController::class, 'save'])->name('save');
+Route::get('/admin/contact-us', [FrontendController::class, 'viewContactus'])->name('viewContactus');
+Route::get('/admin/delete-contact-us/{id}', [FrontendController::class, 'deleteContactus'])->name('deleteContactus');
+Route::get('/user/makepayment', [UserController::class, 'userMakepayment'])->name('userMakepayment');
 Route::get('/logout',[FrontendController::class,'logout'] )->name('logout');

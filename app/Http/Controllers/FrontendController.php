@@ -9,6 +9,8 @@ use App\Models\Catagory;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Contactus;
+use App\Models\Notification;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Hash;
@@ -146,6 +148,22 @@ public function catagoryDelete($id)
  Catagory::find(decrypt($id))->delete();
  return redirect()->back()->with('success','Catagory Deleted Successfully...!');
 }
+public function catagoryEdit($id)
+{
+$cat= Catagory::find(decrypt($id));
+  return view('catagoryEdit',compact('cat'));
+}
+public function updatecatagory(Request $request,$id)
+{
+    $request->validate([
+      'name'=>'required|string|max:255'
+    ]);
+    $product = Catagory::findOrFail(decrypt($id)); 
+   $product->update([
+    'name' => $request->input('name'),
+]);
+     return redirect()->route('viewCatagory')->with('message','Catagory Updated Successfully');
+}
 public function addProducts()
 {
    $catagories=Catagory::all();
@@ -193,9 +211,18 @@ public function viewProducts()
      $products = DB::table('products')
         ->join('catagories', 'products.cid', '=', 'catagories.cid')
         ->select('products.*', 'catagories.name as category_name')
-        ->get();
+        ->paginate(5);
+        $stocknotification=null;
+        foreach($products as $product)
+        {
+          if($product->stock==0)
+          {
+             $stocknotification="some products are out of stock...!";
+             break;
+          }
+        }
 
-  return view('viewProducts',compact('products'));
+  return view('viewProducts',compact('products','stocknotification'));
 }
 public function deleteProducts($id)
 {
@@ -228,12 +255,19 @@ public function updateProduct(Request $request)
     ]);
 
 $pid=request('pid');
+    // Get current stock
+    $existingProduct = DB::table('products')->where('pid', $pid)->first();
+    if (!$existingProduct) {
+        return redirect()->back()->withErrors(['Product not found.']);
+    }
 
+    // Add to existing stock
+    $newStock = $existingProduct->stock + $request->input('stock');
     $data = [
         'product' => $request->name,
-        'cid' => $request->cid, // 👈 correct, no need for category name
+        'cid' => $request->cid, 
         'price' => $request->price,
-        'stock' => $request->stock,
+        'stock' => $newStock,
         'description' => $request->description,
     ];
 
@@ -290,6 +324,7 @@ public function viewAllOrders(Request $request)
         ->select(
             'orders.oid',
             'orders.status',
+             'orders.created_at as order_date',
             'orders.total_price',
             'products.product',
             'products.price',
@@ -301,11 +336,12 @@ public function viewAllOrders(Request $request)
         )
         ->when($query, function ($q) use ($query) {
             $q->where('registrations.name', 'like', '%' . $query . '%')
-              ->orWhere('products.product', 'like', '%' . $query . '%');
+              ->orWhere('products.product', 'like', '%' . $query . '%')
+              ->orWhere('orders.created_at', 'like', '%' . $query . '%');
         }) 
         ->orderBy('orders.created_at', 'desc')
 
-        ->get();
+        ->paginate(10);
 
     return view('adminviewOrders', compact('orders','query'));
 }
@@ -316,11 +352,27 @@ public function approveOrder($id)
     if ($order->status == 'pending') {
         $order->status = 'approved';
         $order->save();
+             // Create a database notification for the user
+        Notification::create([
+            'user_id' => $order->user_id,
+            'message' => 'Your order (ID: ' . $order->oid . ') has been approved by the admin.',
+        ]);
         return redirect()->back()->with('success', 'Order approved successfully!');
     }
 
     return redirect()->back()->with('success', 'Order is already approved.');
 }
 
+public function viewContactus()
+{
+$contacts=Contactus::all();
+  return view('adminContactus',compact('contacts'));
+}
+public function deleteContactus($id)
+{
+  $decrypted_id=decrypt($id);
+  $item=Contactus::find($decrypted_id)->delete();
+  return redirect()->back()->with('message','Deleted Successfully');
 
+}
 }

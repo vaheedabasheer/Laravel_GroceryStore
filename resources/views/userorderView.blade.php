@@ -28,7 +28,7 @@
       <th scope="row">{{ $order->oid }}</th>
       <td> {{ $order->product }}</td>
       <td>{{ $order->quantity }}</td>
-      <td>₹{{ $order->product_price }}</td>
+      <td>₹{{ ($order->product_price)*($order->quantity) }}</td>
       <td>{{ ucfirst($order->status) }}</td> 
       <td>{{ \Carbon\Carbon::parse($order->order_date)->format('d M Y') }}</td>
           <td>
@@ -36,12 +36,15 @@
         <form action="{{ route('cancelOrder', $order->oid) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this order?')">
 
             @csrf
+
             <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+
           </form>
           @elseif($order->status === 'approved')
            <span class="text-muted">Approved</span>
         @else
           <span class="text-muted">cancelled</span>
+
         @endif
       </td>
     </tr>

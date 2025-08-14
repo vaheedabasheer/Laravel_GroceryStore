@@ -1,4 +1,4 @@
-@extends('layouts.admin_head') {{-- Make sure this layout exists --}}
+@extends('layouts.admin_head') 
 @section('content')
 
 <div class="container mt-4">
@@ -27,6 +27,7 @@
         <thead class="table-dark">
             <tr>
                 <th>No.</th>
+                <th>Date</th>
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Price</th>
@@ -41,7 +42,9 @@
         <tbody>
         @foreach($orders as $order)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td>{{ $orders->firstItem() + $loop->index }}</td>
+                
+      <td>{{ \Carbon\Carbon::parse($order->order_date)->format('d M Y') }}</td>
                 <td>{{ $order->product }}</td>
                 <td>{{ $order->quantity }}</td>
                 <td>₹{{ $order->price }}</td>
@@ -68,6 +71,8 @@
         @endforeach
         </tbody>
     </table>
+    {{ $orders->links('pagination::bootstrap-5') }}
+
 </div>
 
 @endsection

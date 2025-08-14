@@ -264,7 +264,7 @@
           
           <div class="col-sm-4 col-lg-2 text-center text-sm-start d-flex gap-3 justify-content-center justify-content-md-start">
             <div class="d-flex align-items-center my-3 my-sm-0">
-              <a href="index.html">
+              <a href="">
                 <img src="images/logo.svg" alt="logo" class="img-fluid">
               </a>
             </div>
@@ -280,12 +280,16 @@
               <li class="nav-item active">
                 <a href="{{route('home')}}" class="nav-link">Home</a>
               </li>
-                 <li class="nav-item active">
+                 <li class="nav-item ">
                 <a href="{{route('register')}}" class="nav-link">Register</a>
               </li>
-                 <li class="nav-item active">
+                 <li class="nav-item ">
                 <a href="{{route('login')}}" class="nav-link">Login</a>
               </li>
+             <li class="nav-item me-auto">
+  <a href="{{route('contactus')}}" class="nav-link text-decoration-none"><span style="color:red">Contact Us</span></a>
+</li>
+
               <!-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle pe-3" role="button" id="pages" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
                 <ul class="dropdown-menu border-0 p-3 rounded-0 shadow" aria-labelledby="pages">
@@ -328,9 +332,7 @@
                   <svg width="24" height="24"><use xlink:href="#user"></use></svg>
                 </a>
               </li> -->
-              <li>
              
-              </li>
             
             </ul>
           </div>
@@ -338,7 +340,7 @@
         </div>
       </div>
     </header>
-@yield('content');
+@yield('content')
    <footer class="py-5">
       <div class="container-lg">
         <div class="row">

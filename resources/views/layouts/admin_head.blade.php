@@ -298,10 +298,10 @@
           <div class="col-lg-4">
             <ul class="navbar-nav list-unstyled d-flex flex-row gap-3 gap-lg-5 justify-content-center flex-wrap align-items-center mb-0 fw-bold text-uppercase text-dark">
               <li class="nav-item active">
-                <a href="index.html" class="nav-link">Home</a>
+                <a href="" class="nav-link">Home</a>
               </li>
                 <li class="nav-item">
-                <a href="{{route('addProducts')}}" class="nav-link">Add Products</a>
+                <a href="{{route('viewContactus')}}" class="nav-link">Enquiries</a>
               </li>  
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle pe-3" role="button" id="pages" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
@@ -360,7 +360,7 @@
 
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="footer-menu">
-              <img src="images/logo.svg" width="240" height="70" alt="logo">
+              <img src="{{asset('images/logo.svg')}}" width="240" height="70" alt="logo">
               <div class="social-links mt-3">
                 <ul class="d-flex list-unstyled gap-2">
                   <li>

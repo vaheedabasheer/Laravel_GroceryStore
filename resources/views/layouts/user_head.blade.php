@@ -294,18 +294,23 @@
           </div>
 
           <div class="col-lg-4">
+           
             <ul class="navbar-nav list-unstyled d-flex flex-row gap-3 gap-lg-5 justify-content-center flex-wrap align-items-center mb-0 fw-bold text-uppercase text-dark">
           
             <li class="nav-item">
-                <a href="index.html" class="nav-link">Home</a>
+                <a href="{{route('user')}}" class="nav-link">Home</a>
               </li>
+               <li class="nav-item">
+                <a href="{{route('user.notifications')}}" class="nav-link">Notifications</a>
+              </li>
+              
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle pe-3" role="button" id="pages" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
                 <ul class="dropdown-menu border-0 p-3 rounded-0 shadow" aria-labelledby="pages">
                   <li><a href="{{route('userProfile')}}" class="dropdown-item">Profile</a></li>
                    <li><a href="{{route('productView')}}" class="dropdown-item">View Products</a></li>
                      <li><a href="{{route('viewOrder')}}" class="dropdown-item">View Orders</a></li>
-                  
+                    
                 </ul>
               </li>
             </ul>

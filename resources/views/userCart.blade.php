@@ -7,6 +7,9 @@
       @if(session('message'))
       <p style="color:red;">{{session('message')}}</p>
       @endif
+      @if($carts->isEmpty())
+  <p class="text-danger">Your cart is empty.</p>
+@endif
     @foreach($carts as $cart)
 <div class="card mb-3" style="max-width: 540px;">
   <div class="row g-0">
@@ -20,13 +23,19 @@
          <h5 class="card-title">₹{{$cart->price}}</h5>
         <p class="card-text">{{$cart->description}}.</p>
             <p class="card-text">Quantity: {{ $cart->total_quantity }}.</p>
+             <p class="card-text">Total: {{ ($cart->total_quantity)*($cart->price)}}.</p>
+
         <a href="{{route('DeleteUserCart',encrypt($cart->pid))}}"><button type="button" class="btn btn-outline-danger">Remove</button></a>
+ 
       </div>
     </div>
   </div>
 </div>
 @endforeach
-
+             @if($carts->count()>0)
        <a href="{{route('checkout')}}"> <button type="button" class="btn btn-outline-success">Checkout</button></a>
+           @else
+           <button type="button" class="btn btn-secondery" disabled>Checkout</button>
+           @endif
 </center>
     @stop

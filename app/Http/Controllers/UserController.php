@@ -9,6 +9,7 @@ use App\Models\Registration;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -38,6 +39,16 @@ class UserController extends Controller
         
          $pid=decrypt(request('pid'));
           $quantity = $request->quantity;
+         $product = Product::find($pid);
+
+    if (!$product) {
+        return redirect()->back()->with('error', 'Product not found.');
+    }
+
+    // Check available stock
+    if ($quantity > $product->stock) {
+        return redirect()->back()->with('error', 'Only ' . $product->stock . ' units available in stock.');
+    }
           Cart::create([
             'user_id'=>$userId,
             'pid'=>$pid,
@@ -152,21 +163,31 @@ public function userProfileUpdate(Request $request, $id)
 }
 
 
-public function placeOrder()
+public function placeOrder(Request $request)
 {
     $userId = session('user_id');
+// $request->validate(['payment'=>'required|in:credit,net,upi,cod']);
 
     try {
         DB::transaction(function () use ($userId) {
             $cartItems = Cart::with('product')->where('user_id', $userId)->get();
 
             if ($cartItems->isEmpty()) {
-                throw new \Exception('Cart is empty. Cannot place order.');
+                throw new \Exception('Your cart is empty.');
             }
 
-            $totalPrice = $cartItems->sum(function ($item) {
-                return $item->product->price * $item->quantity;
-            });
+            $totalPrice = 0;
+            $lowStockProducts = [];
+
+            foreach ($cartItems as $item) {
+                $product = $item->product;
+
+                if ($item->quantity > $product->stock) {
+                    throw new \Exception("Not enough stock for product: {$product->product}. Available: {$product->stock}");
+                }
+
+                $totalPrice += $product->price * $item->quantity;
+            }
 
             $order = Order::create([
                 'user_id'     => $userId,
@@ -174,18 +195,36 @@ public function placeOrder()
                 'status'      => 'pending',
             ]);
 
-            $orderItems = $cartItems->map(function ($item) {
-                return new OrderItem([
+            $orderItems = [];
+
+            foreach ($cartItems as $item) {
+                $product = $item->product;
+
+                // Deduct stock
+                $product->stock -= $item->quantity;
+                $product->save();
+
+                // Notify if stock is low
+                if ($product->stock <= 5) {
+                    $lowStockProducts[] = $product->product;
+                }
+
+                $orderItems[] = new OrderItem([
                     'pid'      => $item->pid,
                     'quantity' => $item->quantity,
-                    'price'    => $item->product->price,
+                    'price'    => $product->price,
                 ]);
-            });
+            }
 
             $order->items()->saveMany($orderItems);
-
-            // ❗ Only clear cart after everything succeeds
             Cart::where('user_id', $userId)->delete();
+
+            // Store notification in session or database for admin
+            if (!empty($lowStockProducts)) {
+                session()->flash('admin_notification', 'Low stock alert: ' . implode(', ', $lowStockProducts));
+                
+
+            }
         });
 
         return view('userPlaceorder')->with('success', 'Order placed successfully!');
@@ -208,7 +247,8 @@ public function viewOrder()
             'orders.created_at as order_date',
             'products.product',
             'products.price as product_price',
-            'products.pid'
+            'products.pid',
+          
         )
         ->where('orders.user_id', $userId)
         ->orderBy('orders.created_at', 'desc')
@@ -223,27 +263,48 @@ public function viewOrder()
 
 public function cancelOrder($id)
 {
-    // dd(session('user_id'));
+    $order = Order::with('items')->findOrFail($id); // Eager load items
 
-    $order = Order::findOrFail($id);
-
-    // ✅ Ensure user owns the order
-    if ($order->user_id != session('user_id'))
-         {
+    if ($order->user_id != session('user_id')) {
         return redirect()->back()->with('error', 'Unauthorized action.');
     }
 
-    // ✅ Only allow cancelling if status is 'pending'
     if ($order->status === 'pending') {
+        // Restore stock
+        foreach ($order->items as $item) {
+            $product = Product::find($item->pid);
+            if ($product) {
+                $product->stock += $item->quantity;
+                $product->save();
+            }
+        }
+
+        // Cancel order
         $order->status = 'cancelled';
-           $order->total_price = 0;
+        $order->total_price = 0;
         $order->save();
-           
-        return redirect()->back()->with('success', 'Order cancelled successfully.');
+
+        return redirect()->back()->with('success', 'Order cancelled and stock restored successfully.');
     }
 
     return redirect()->back()->with('error', 'Only pending orders can be cancelled.');
 }
 
+public function showNotifications()
+{
+    $userId = session('user_id');
+// dd($userId);
+    $notifications = Notification::where('user_id', $userId)
+                                 ->orderBy('created_at', 'desc')
+                                 ->get();
+
+    return view('userNotifications', compact('notifications'));
+}
+public function userMakepayment()
+{
+    $userId = session('user_id');
+    $details=Registration::where('user_id',$userId);
+    return view('userMakepayment',compact('details'));
+}
 
 }
