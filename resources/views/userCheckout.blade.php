@@ -33,12 +33,31 @@
     </div>
   </div>
 </div>
- 
+</div>
 @endforeach
 
 @if($details)
-  <div class="card text-center" style="max-width: 540px;">
+  <div class="card" style="max-width: 540px;">
+        <p class="text-start fw-bold text-success">Payment Method</p>
+@error('payment')
+    <div class="text-danger mb-2">{{ $message }}</div>
+@enderror
+<form action="route('order.success')}}" method="post">
+  @csrf
+      <input type="radio" name="payment" id="credit">
+     <label for="credit">Credit or debit card</label><br>
+   <input type="radio" name="payment" id="net">
+   <label for="net">Net Banking</label><br>
+   <input type="radio" name="payment" id="upi">
+<label for="upi">Other UPI Apps</label><br>
+ <input type="radio" name="payment" id="cod">
+  <label for="cod">Cash on Delivery/Pay on Delivery</label><br>
+  
+  
+</form>
+<br>
     <h5 class="card-title">
+      
       <span style="color:red"><b>Delivering To: </b></span>{{ $details->name }}
     </h5>
     <p class="card-text">{{ $details->address }}</p>
@@ -67,7 +86,8 @@
   </div>
 @endif
 </div>
- <div class="col-sm-6">
+
+ <!-- <div class="col-sm-12">
 <div class="card pb-3 " style="max-width: 540px;">
 
     <br>
@@ -88,9 +108,9 @@
   
   
 </form>
- 
+
 </div>
-</div>
+</div> -->
 </div>
 
 </div>

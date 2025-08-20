@@ -348,7 +348,7 @@
         </div>
       </div>
     </header>
-@yield('content');
+@yield('content')
    <footer class="py-5">
       <div class="container-lg">
         <div class="row">

@@ -17,6 +17,9 @@
                 </form>
                 @if(isset($query))
                     <p>Showing the result for <strong>"{{$query}}"</strong></p>
+                    @else
+                    <p>No Results Found</p>
+                    
                     @endif
             <br>
     @if(session('success'))
