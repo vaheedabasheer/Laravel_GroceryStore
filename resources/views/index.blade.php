@@ -84,7 +84,7 @@
       </div>
     </section>
 
-    <section class="py-5 overflow-hidden">
+    <!-- <section class="py-5 overflow-hidden">
       <div class="container-lg">
         <div class="row">
           <div class="col-md-12">
@@ -163,9 +163,9 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
-    <section class="pb-5">
+    <!-- <section class="pb-5">
       <div class="container-lg">
 
         <div class="row">
@@ -546,9 +546,9 @@
           </div>
         </div>
       </div>
-    </section>
+    <!-- </section> --> 
 
-    <section class="py-3">
+    <!-- <section class="py-3">
       <div class="container-lg">
         <div class="row">
           <div class="col-md-12">
@@ -590,10 +590,10 @@
               
           </div>
         </div>
-      </div>
-    </section>
+      <!-- </div>
+    </section> --> 
 
-    <section id="featured-products" class="products-carousel">
+    <!-- <section id="featured-products" class="products-carousel">
       <div class="container-lg overflow-hidden py-5">
         <div class="row">
           <div class="col-md-12">
@@ -924,7 +924,7 @@
           </div>
         </div>
       </div>
-    </section>
+    <!-- </section> --> 
 
     <section>
       <div class="container-lg">
@@ -964,7 +964,7 @@
       </div>
     </section>
 
-    <section id="popular-products" class="products-carousel">
+    <!-- <section id="popular-products" class="products-carousel">
       <div class="container-lg overflow-hidden py-5">
         <div class="row">
           <div class="col-md-12">
@@ -1295,9 +1295,9 @@
           </div>
         </div>
       </div>
-    </section>
+    <!-- </section> --> 
 
-    <section id="latest-products" class="products-carousel">
+    <!-- <section id="latest-products" class="products-carousel">
       <div class="container-lg overflow-hidden pb-5">
         <div class="row">
           <div class="col-md-12">
@@ -1627,9 +1627,9 @@
           </div>
         </div>
       </div>
-    </section>
+    <!-- </section> --> 
 
-    <section id="latest-blog" class="pb-4">
+    <!-- <section id="latest-blog" class="pb-4">
       <div class="container-lg">
         <div class="row">
           <div class="section-header d-flex align-items-center justify-content-between my-4">
@@ -1703,7 +1703,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <section class="pb-4 my-4">
       <div class="container-lg">
@@ -1722,6 +1722,7 @@
               <div class="col-md-5">
                 <img src="images/banner-onlineapp.png" alt="phone" class="img-fluid">
               </div>
+              
             </div>
           </div>
         </div>
@@ -1729,7 +1730,7 @@
       </div>
     </section>
 
-    <section class="py-4">
+    <!-- <section class="py-4">
       <div class="container-lg">
         <h2 class="my-4">People are also looking for</h2>
         <a href="#" class="btn btn-warning me-2 mb-2">Blue diamon almonds</a>
@@ -1751,7 +1752,7 @@
         <a href="#" class="btn btn-warning me-2 mb-2">Chao Cheese Creamy</a>
         <a href="#" class="btn btn-warning me-2 mb-2">Chicken meatballs</a>
       </div>
-    </section>
+    </section> -->
 
     <section class="py-5">
       <div class="container-lg">

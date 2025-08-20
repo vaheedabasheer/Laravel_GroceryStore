@@ -298,20 +298,23 @@
           <div class="col-lg-4">
             <ul class="navbar-nav list-unstyled d-flex flex-row gap-3 gap-lg-5 justify-content-center flex-wrap align-items-center mb-0 fw-bold text-uppercase text-dark">
               <li class="nav-item active">
-                <a href="" class="nav-link">Home</a>
+                <a href="{{route('admin')}}" class="nav-link">Home</a>
               </li>
                 <li class="nav-item">
                 <a href="{{route('viewContactus')}}" class="nav-link">Enquiries</a>
-              </li>  
+              </li> 
+                
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle pe-3" role="button" id="pages" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
                 <ul class="dropdown-menu border-0 p-3 rounded-0 shadow" aria-labelledby="pages">
+                       <li><a href="{{route('viewRegistration')}}" class="dropdown-item">View Registrations </a></li>
                   <li><a href="{{route('addProducts')}}" class="dropdown-item">Add Products</a></li>
                  <li><a href="{{route('viewProducts')}}" class="dropdown-item">View Products </a></li>
                   <li><a href="{{route('add')}}" class="dropdown-item">Add Catagory </a></li>
                   <li><a href="{{route('viewCatagory')}}" class="dropdown-item">View Catagory </a></li>
                   <li><a href="{{route('adminviewCart')}}" class="dropdown-item">View Cart Items </a></li>
                   <li><a href="{{route('orderViewAll')}}" class="dropdown-item">View Orders </a></li>
+               
                 </ul>
               </li>
             </ul>

@@ -373,6 +373,10 @@ public function deleteContactus($id)
   $decrypted_id=decrypt($id);
   $item=Contactus::find($decrypted_id)->delete();
   return redirect()->back()->with('message','Deleted Successfully');
-
+}
+public function viewRegistration()
+{
+  $reg=Registration::all();
+  return view('admin_viewRegistrations',compact('reg'));
 }
 }

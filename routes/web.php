@@ -46,4 +46,5 @@ Route::post('/contactUs/save', [HomeController::class, 'save'])->name('save');
 Route::get('/admin/contact-us', [FrontendController::class, 'viewContactus'])->name('viewContactus');
 Route::get('/admin/delete-contact-us/{id}', [FrontendController::class, 'deleteContactus'])->name('deleteContactus');
 Route::get('/user/makepayment', [UserController::class, 'userMakepayment'])->name('userMakepayment');
+Route::get('/admin/viewRegistration', [FrontendController::class, 'viewRegistration'])->name('viewRegistration');
 Route::get('/logout',[FrontendController::class,'logout'] )->name('logout');
